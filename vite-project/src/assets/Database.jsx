@@ -1,6 +1,7 @@
 import { createContext, useEffect, useState } from "react";
+import { Login } from "./Login";
 
-const usersDatabase = createContext([]);
+export const usersDatabase = createContext([]);
 
 export function Database() {
   const [users, setUser] = useState([]);
@@ -22,7 +23,7 @@ export function Database() {
   return (
     <div>
       <usersDatabase.Provider value={users}>
-        
+        <Login />
       </usersDatabase.Provider>
     </div>
   );

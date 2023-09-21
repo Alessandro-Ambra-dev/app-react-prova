@@ -5,10 +5,11 @@ import "./App.css";
 import { Database } from "./assets/Database";
 
 function App() {
-
-  return <>
-  <Database/>
-  </>;
+  return (
+    <>
+      <Database />
+    </>
+  );
 }
 
 export default App;
