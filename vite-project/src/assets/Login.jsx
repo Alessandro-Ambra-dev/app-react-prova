@@ -43,6 +43,7 @@ export function Login() {
       <label>
         Username:
         <input
+          placeholder="Insert Username"
           name="username"
           value={user.username}
           onChange={handleInput}
@@ -51,6 +52,7 @@ export function Login() {
       <label>
         Password:{" "}
         <input
+          placeholder="Insert Password"
           name="password"
           type="password"
           value={user.password}
@@ -61,6 +63,7 @@ export function Login() {
       <label>
         Email:{" "}
         <input
+          placeholder="Insert Email"
           name="usermail"
           value={user.usermail}
           onChange={handleInput}
