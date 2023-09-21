@@ -1,30 +1,36 @@
-import { createContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Login } from "./Login";
+import React from "react";
 
-export const usersDatabase = createContext([]);
+export const UsersDatabase = React.createContext([]);
 
 export function Database() {
-  const [users, setUser] = useState([]);
+  const [originalUsers, setOriginalUsers] = useState([]);
+  const [filteredUsers, setFilteredUsers] = useState([]);
 
   useEffect(() => {
     fetch("https://jsonplaceholder.typicode.com/users")
-      .then((data) => data.json())
-      .then((data) => setUser(data))
-      .then(() => {
-        let database = users.map((user) => ({
-          password: user.username,
-          username: user.name,
-          usermail: user.email,
-        }));
-        setUser(database);
+      .then((res) => res.json())
+      .then((data) => {
+        setOriginalUsers(data);
       });
   }, []);
 
+  useEffect(() => {
+    const filteredDatabase = originalUsers.map((user) => ({
+      password: user.username,
+      username: user.name,
+      usermail: user.email,
+    }));
+    setFilteredUsers(filteredDatabase);
+    // console.log(filteredUsers);
+  }, [originalUsers]);
+
   return (
     <div>
-      <usersDatabase.Provider value={users}>
+      <UsersDatabase.Provider value={filteredUsers}>
         <Login />
-      </usersDatabase.Provider>
+      </UsersDatabase.Provider>
     </div>
   );
 }

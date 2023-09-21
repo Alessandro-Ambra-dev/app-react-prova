@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react";
-import { usersDatabase } from "./Database";
+import { UsersDatabase } from "./Database";
 
 export function Login() {
   const [user, setUser] = useState({
@@ -7,15 +7,14 @@ export function Login() {
     password: "",
     usermail: "",
   });
+  const value = useContext(UsersDatabase);
 
   function handleInput(event) {
     const { name, value } = event.target;
     setUser((prevData) => ({ ...prevData, [name]: value }));
   }
 
-  useEffect(() => {
-    console.log(user);
-  }, [user]);
+  console.log(value);
 
   function handleReset() {
     setUser({
@@ -23,6 +22,20 @@ export function Login() {
       password: "",
       usermail: "",
     });
+  }
+
+  function handleLogin() {
+    let filteredDatabase = value.filter((el) => {
+      return (
+        el.username === user.username &&
+        el.password === user.password &&
+        el.usermail === user.usermail
+      );
+    });
+    filteredDatabase.length
+      ? alert("Funziona")
+      : alert(`${user.username} does not exist`);
+    console.log(filteredDatabase);
   }
 
   return (
@@ -54,7 +67,10 @@ export function Login() {
         ></input>
       </label>
 
-      <button disabled={!user.username || !user.password || !user.usermail}>
+      <button
+        onClick={handleLogin}
+        disabled={!user.username || !user.password || !user.usermail}
+      >
         Login
       </button>
       <button onClick={handleReset}>Reset</button>
