@@ -19,6 +19,7 @@ export function Login() {
   console.log(value);
 
   function handleReset() {
+    setLog(false);
     setUser({
       username: "",
       password: "",
