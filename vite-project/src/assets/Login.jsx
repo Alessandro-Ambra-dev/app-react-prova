@@ -1,5 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import { UsersDatabase } from "./Database";
+import { LoggedArea } from "./loggedarea";
 
 export function Login() {
   const [user, setUser] = useState({
@@ -7,6 +8,7 @@ export function Login() {
     password: "",
     usermail: "",
   });
+  const [isLogged, setLog] = useState(false);
   const value = useContext(UsersDatabase);
 
   function handleInput(event) {
@@ -33,9 +35,17 @@ export function Login() {
       );
     });
     filteredDatabase.length
-      ? alert("Funziona")
+      ? setLog(true)
       : alert(`${user.username} does not exist`);
     console.log(filteredDatabase);
+  }
+
+  function handlePrefill() {
+    setUser({
+      username: "Leanne Graham",
+      password: "Bret",
+      usermail: "Sincere@april.biz",
+    });
   }
 
   return (
@@ -77,6 +87,9 @@ export function Login() {
         Login
       </button>
       <button onClick={handleReset}>Reset</button>
+      <button onClick={handlePrefill}>Prefill</button>
+
+      {isLogged ? <LoggedArea /> : false}
     </div>
   );
 }
